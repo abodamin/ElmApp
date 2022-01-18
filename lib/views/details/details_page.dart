@@ -163,7 +163,7 @@ class MovieCast extends StatelessWidget {
                   return AspectRatio(
                     aspectRatio: 0.8,
                     child: CastCard(
-                      imagePath: ResourseManager.getNetworkImagePath(
+                      imagePath: ResourseManager.getFullNetworkImagePath(
                           snapshot.data!.cast![index].profilePath!),
                       actorName: snapshot.data!.cast![index].name!,
                       bio: "${snapshot.data!.cast![index].character}",
@@ -295,7 +295,7 @@ class _HeaderMoviePoster extends StatelessWidget {
             alignment: Alignment.bottomLeft,
             children: [
               GredientImage(
-                imageName: ResourseManager.getNetworkImagePath(
+                imageName: ResourseManager.getFullNetworkImagePath(
                   posterPath,
                 ),
               ),

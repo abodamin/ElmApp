@@ -27,7 +27,7 @@ class CastCard extends StatelessWidget {
           height: get80Size(context),
           clipBehavior: Clip.antiAlias,
           child: AvatarPhoto(
-            photoPath: "$imagePath",
+            photoPath: imagePath,
             height: get20Size(context),
           ),
         ),

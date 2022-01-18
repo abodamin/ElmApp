@@ -1,4 +1,5 @@
 import 'package:elm_application/app/imports.dart';
+import 'package:elm_application/views/reusable_widgets/general_cached_image.dart';
 
 class GredientImage extends StatelessWidget {
   final String imageName;
@@ -15,9 +16,9 @@ class GredientImage extends StatelessWidget {
       children: <Widget>[
         SizedBox(
           width: getMediaWidth(context),
-          child: Image.network(
-            imageName,
-            fit: BoxFit.cover,
+          child: GeneralCachedImage(
+            height: 1000.0,
+            photoPath: imageName,
           ),
         ),
         Container(

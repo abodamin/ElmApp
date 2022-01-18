@@ -2,8 +2,8 @@ import 'package:elm_application/app/imports.dart';
 import 'package:elm_application/app/resourses.dart';
 import 'package:elm_application/views/details/details_page.dart';
 import 'package:elm_application/views/details/details_page_controller.dart';
-import 'package:elm_application/views/home/home_page.dart';
 import 'package:elm_application/views/home/home_page_controller.dart';
+import 'package:elm_application/views/reusable_widgets/general_cached_image.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
@@ -112,12 +112,11 @@ class MovieCardItem extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(8.0),
                   height: get200Size(context),
-                  child: Image.network(
-                    ResourseManager.getNetworkImagePath(
+                  child: GeneralCachedImage(
+                    height: 100.0,
+                    photoPath: ResourseManager.getFullNetworkImagePath(
                       imagePath,
                     ),
-                    fit: BoxFit.fill,
-                    width: get120Size(context),
                   ),
                 ),
                 Padding(

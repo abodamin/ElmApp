@@ -26,7 +26,8 @@ class ResourseManager {
   ///returns the path for this image from network
   ///
   ///[highQuality] optional parameter to request high resolution img.
-  static String getNetworkImagePath(String subPath, {bool highQuality = true}) {
+  static String getFullNetworkImagePath(String subPath,
+      {bool highQuality = true}) {
     return highQuality
         ? _image_base_url_highQ + subPath
         : _image_base_url_lowQ + subPath;
