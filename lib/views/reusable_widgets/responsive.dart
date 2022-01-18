@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-final mHor16Vert8 = const EdgeInsets.symmetric(horizontal: 16, vertical: 8);
-final mHor8Vert8 = const EdgeInsets.symmetric(horizontal: 8, vertical: 8);
+const mHor16Vert8 = EdgeInsets.symmetric(horizontal: 16, vertical: 8);
+const mHor8Vert8 = EdgeInsets.symmetric(horizontal: 8, vertical: 8);
 
 AppLocalizations appLocalizations(BuildContext context) {
   return AppLocalizations.of(context);

@@ -2,6 +2,8 @@
 //
 //     final trendingMoviesModel = trendingMoviesModelFromJson(jsonString);
 
+// ignore_for_file: prefer_if_null_operators
+
 import 'dart:convert';
 
 TrendingMoviesModel trendingMoviesModelFromJson(String str) =>
@@ -89,7 +91,7 @@ class Result {
         video: json["video"] == null ? null : json["video"],
         voteAverage: json["vote_average"] == null
             ? null
-            : json["vote_average"].toDouble(),
+            : json["vote_average"].toDouble()!,
         overview: json["overview"] == null ? null : json["overview"],
         releaseDate: json["release_date"] == null
             ? null
@@ -104,7 +106,7 @@ class Result {
             : List<int>.from(json["genre_ids"].map((x) => x)),
         id: json["id"] == null ? null : json["id"],
         popularity:
-            json["popularity"] == null ? null : json["popularity"].toDouble(),
+            json["popularity"] == null ? null : json["popularity"].toDouble()!,
         mediaType: json["media_type"] == null ? null : json["media_type"],
       );
 

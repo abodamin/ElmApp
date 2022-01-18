@@ -11,7 +11,7 @@ class ResourseManager {
   static const String _ASSETS_IMAGES = _ASSETS + _IMAGES;
 
   //Asset images path
-  static const String ic_person = _ASSETS_IMAGES + "ic_person.png";
+  static const String ic_person = _ASSETS_IMAGES + "ic_person.jpeg";
 
   //Network images path
   static const String _image_base_url_highQ =
@@ -26,8 +26,7 @@ class ResourseManager {
   ///returns the path for this image from network
   ///
   ///[highQuality] optional parameter to request high resolution img.
-  static String getNetworkImagePath(String subPath,
-      {bool highQuality = false}) {
+  static String getNetworkImagePath(String subPath, {bool highQuality = true}) {
     return highQuality
         ? _image_base_url_highQ + subPath
         : _image_base_url_lowQ + subPath;

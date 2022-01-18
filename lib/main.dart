@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
             supportedLocales: L10n.support,
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
+              brightness: Brightness.dark,
               primarySwatch: Colors.blue,
             ),
             home: HomePage(),

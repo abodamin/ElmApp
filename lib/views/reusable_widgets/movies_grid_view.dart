@@ -1,5 +1,7 @@
 import 'package:elm_application/app/imports.dart';
 import 'package:elm_application/app/resourses.dart';
+import 'package:elm_application/views/details/details_page.dart';
+import 'package:elm_application/views/details/details_page_controller.dart';
 import 'package:elm_application/views/home/home_page.dart';
 import 'package:elm_application/views/home/home_page_controller.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -49,6 +51,7 @@ class MoviesGridView extends StatelessWidget {
                         title: listOfMovies[index].title!,
                         imagePath: listOfMovies[index].posterPath!,
                         voteAverage: listOfMovies[index].voteAverage!,
+                        movieId: listOfMovies[index].id.toString(),
                       );
                     }
                   },
@@ -67,7 +70,7 @@ class MoviesGridView extends StatelessWidget {
 }
 
 class MovieCardItem extends StatelessWidget {
-  final String title, imagePath;
+  final String title, imagePath, movieId;
   final double voteAverage;
 
   const MovieCardItem({
@@ -75,6 +78,7 @@ class MovieCardItem extends StatelessWidget {
     required this.title,
     required this.imagePath,
     required this.voteAverage,
+    required this.movieId,
   }) : super(key: key);
 
   @override
@@ -86,7 +90,18 @@ class MovieCardItem extends StatelessWidget {
         height: get200Size(context) + get50Size(context),
         width: getMediaWidth(context),
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            // navigateToDetailsPage();
+            navigateTo(
+              context,
+              DetailsPage(
+                id: movieId,
+              ),
+              arguments: {
+                DetailsPageController.movieIdKey: movieId,
+              },
+            );
+          },
           child: SizedBox(
             height: get100Size(context),
             child: Column(

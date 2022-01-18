@@ -1,9 +1,13 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:elm_application/app/colors.dart';
+import 'package:elm_application/views/details/details_page.dart';
+import 'package:elm_application/views/details/details_page_controller.dart';
 import 'package:elm_application/views/reusable_widgets/responsive.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
 ///**************************************************
@@ -33,9 +37,12 @@ Color getColorFromHex(String hexColor) {
 // }
 
 ///Uses Getx
-// Future navigateTo(context, page) async {
-//   return await Navigator.push(
-//       context, MaterialPageRoute(builder: (context) => page));
+Future navigateTo(context, page, {dynamic arguments}) async {
+  return await Get.to(page, arguments: arguments);
+}
+
+// Future navigateToDetailsPage() async {
+//   return Get.to(() => DetailsPage());
 // }
 
 InputDecoration txtField(String label) {
@@ -407,5 +414,32 @@ class GeneralText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(text, style: getTextTheme(context).bodyText1);
+  }
+}
+
+class BackArrowIcon extends StatelessWidget {
+  const BackArrowIcon({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      clipBehavior: Clip.antiAlias,
+      decoration:
+          containerColorRadiusBorder(Colors.black38, 100, Colors.transparent),
+      child: IconButton(
+        icon: Platform.isAndroid
+            ? const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              )
+            : const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+              ),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
   }
 }

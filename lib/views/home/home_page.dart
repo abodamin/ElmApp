@@ -50,27 +50,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-
-/*
-   Expanded(
-                    child: SizedBox(
-                      height: getMediaHeight(context),
-                      child: FutureBuilder(
-                          future: ApiClient.apiClient.getTrendingMovies(_homePageController.pages),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return MoviesGridView(
-                                listOfMovies: _controller.trendingMoviesModel?.results ??
-                                        [],
-                              );
-                            } else if (snapshot.hasError) {
-                              //TODO get movies offline
-                              return Text("ERRROR");
-                            } else {
-                              return MyLoadingWidget();
-                            }
-                          }),
-                    ),
-                  ),
- */
