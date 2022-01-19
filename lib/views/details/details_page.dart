@@ -1,14 +1,15 @@
-import 'package:elm_application/app/imports.dart';
 import 'package:elm_application/app/resourses.dart';
 import 'package:elm_application/data/api_models/movie_cast_model.dart';
-import 'package:elm_application/data/api_models/movie_details_model.dart';
 import 'package:elm_application/data/singletones/api.dart';
 import 'package:elm_application/views/details/details_page_controller.dart';
 import 'package:elm_application/views/reusable_widgets/cast_card.dart';
 import 'package:elm_application/views/reusable_widgets/gredient_image.dart';
+import 'package:elm_application/views/reusable_widgets/responsive.dart';
+import 'package:elm_application/views/reusable_widgets/utils.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' as intl;
 
 class DetailsPage extends StatelessWidget {
   final String id;
@@ -24,114 +25,119 @@ class DetailsPage extends StatelessWidget {
       body: SizedBox(
         height: getMediaHeight(context),
         width: getMediaWidth(context),
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              child: GetX<DetailsPageController>(
-                  init: DetailsPageController(id),
-                  builder: (DetailsPageController controller) {
-                    if (controller.movieDertails.value.id != null) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // --- GradientImg --- //
-                          _HeaderMoviePoster(
-                            title: controller.movieDertails.value.title!,
-                            posterPath:
-                                controller.movieDertails.value.posterPath!,
-                          ),
-                          // --- Rating --- //
-                          _MovieRatingBar(
-                            voteAverage:
-                                controller.movieDertails.value.voteAverage!,
-                          ),
-                          // --- Overview --- //
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "OVERVIEW",
-                              style: getTextTheme(context).caption,
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: GetX<DetailsPageController>(
+                    init: DetailsPageController(id),
+                    builder: (DetailsPageController controller) {
+                      if (controller.movieDertails.value.id != null) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // --- GradientImg --- //
+                            _HeaderMoviePoster(
+                              title: controller.movieDertails.value.title!,
+                              posterPath:
+                                  controller.movieDertails.value.posterPath!,
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              controller.movieDertails.value.overview!,
-                              textAlign: TextAlign.justify,
+                            // --- Rating --- //
+                            _MovieRatingBar(
+                              voteAverage:
+                                  controller.movieDertails.value.voteAverage!,
                             ),
-                          ),
-                          const MHeight(30),
-                          // --- Budget - Duration - ReleaseData --- //
-                          BudgetDurationRealeaseDate(
-                            budget: controller.movieDertails.value.budget!,
-                            duration: controller.movieDertails.value.runtime!,
-                            releaseDate:
-                                controller.movieDertails.value.releaseDate!,
-                          ),
-                          MHeight(get20Size(context)),
-                          // --- Genres --- //
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "GENRES",
-                              style: getTextTheme(context).bodyText2?.copyWith(
-                                    color: Colors.grey,
-                                  ),
+                            // --- Overview --- //
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                appLocalizations(context).overview,
+                                style: getTextTheme(context).caption,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Wrap(
-                              direction: Axis.horizontal,
-                              spacing: 15,
-                              children: List.generate(
-                                controller.movieDertails.value.genres!.length,
-                                (index) {
-                                  return Genre(
-                                    title:
-                                        "${controller.movieDertails.value.genres![index].name}",
-                                  );
-                                },
-                              ).toList(),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                controller.movieDertails.value.overview!,
+                                textAlign: TextAlign.justify,
+                              ),
                             ),
-                          ),
-                          MHeight(get20Size(context)),
-                          // --- Cast --- //
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "CAST",
-                              style: getTextTheme(context).bodyText2?.copyWith(
-                                    color: Colors.grey,
-                                  ),
+                            const MHeight(30),
+                            // --- Budget - Duration - ReleaseData --- //
+                            BudgetDurationRealeaseDate(
+                              budget: controller.movieDertails.value.budget!,
+                              duration: controller.movieDertails.value.runtime!,
+                              releaseDate:
+                                  controller.movieDertails.value.releaseDate!,
                             ),
+                            MHeight(get20Size(context)),
+                            // --- Genres --- //
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                appLocalizations(context).genres,
+                                style:
+                                    getTextTheme(context).bodyText2?.copyWith(
+                                          color: Colors.grey,
+                                        ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Wrap(
+                                direction: Axis.horizontal,
+                                spacing: 15,
+                                children: List.generate(
+                                  controller.movieDertails.value.genres!.length,
+                                  (index) {
+                                    return Genre(
+                                      title:
+                                          "${controller.movieDertails.value.genres![index].name}",
+                                    );
+                                  },
+                                ).toList(),
+                              ),
+                            ),
+                            MHeight(get20Size(context)),
+                            // --- Cast --- //
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                appLocalizations(context).cast,
+                                style:
+                                    getTextTheme(context).bodyText2?.copyWith(
+                                          color: Colors.grey,
+                                        ),
+                              ),
+                            ),
+                            MovieCast(id: controller.id),
+                            MHeight(get20Size(context)),
+                          ],
+                        );
+                      } else {
+                        return SizedBox(
+                          height: getMediaHeight(context),
+                          child: Center(
+                            child: MyLoadingWidget(),
                           ),
-                          MovieCast(id: controller.id),
-                          MHeight(get20Size(context)),
-                        ],
-                      );
-                    } else {
-                      return SizedBox(
-                        height: getMediaHeight(context),
-                        child: Center(
-                          child: MyLoadingWidget(),
-                        ),
-                      );
-                    }
-                    //
-                  }),
-            ),
-            // --- Back Arrow --- //
-            const SafeArea(
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: BackArrowIcon(),
+                        );
+                      }
+                      //
+                    }),
+              ),
+              // --- Back Arrow --- //
+              const SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: BackArrowIcon(),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -181,7 +187,7 @@ class MovieCast extends StatelessWidget {
 
 class BudgetDurationRealeaseDate extends StatelessWidget {
   final dynamic budget, duration, releaseDate;
-  static final _currency = NumberFormat("#,##0", "en_US");
+  static final _currency = intl.NumberFormat("#,##0", "en_US");
 
   const BudgetDurationRealeaseDate({
     Key? key,
@@ -195,21 +201,21 @@ class BudgetDurationRealeaseDate extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SizedBox(
-        height: get40Size(context),
+        height: get50Size(context),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _TitleAndValue(
-              title: "Budget",
+              title: appLocalizations(context).budget,
               value: "${_currency.format(budget)}\$",
             ),
             _TitleAndValue(
-              title: "Duration",
+              title: appLocalizations(context).duration,
               value: "$duration min",
             ),
             _TitleAndValue(
-              title: "Release Date",
-              value: DateFormat('yyyy-MM-dd').format(releaseDate),
+              title: appLocalizations(context).releaseDate,
+              value: intl.DateFormat('yyyy-MM-dd').format(releaseDate),
             ),
           ],
         ),
@@ -317,9 +323,11 @@ class _HeaderMoviePoster extends StatelessWidget {
             padding: mHor16Vert8,
             child: ClipOval(
               child: Material(
-                color: Colors.amber, // Button color
+                color: Colors.amber,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    //show movie trailer
+                  },
                   child: const SizedBox(
                     child: Padding(
                       padding: EdgeInsets.all(8.0),

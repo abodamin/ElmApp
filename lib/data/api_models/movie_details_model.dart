@@ -43,7 +43,7 @@ class MovieDertailsModel {
 
   final bool? adult;
   final String? backdropPath;
-  final dynamic? belongsToCollection;
+  final dynamic belongsToCollection;
   final int? budget;
   final List<Genre>? genres;
   final String? homepage;

@@ -24,11 +24,4 @@ class DetailsPageController extends GetxController {
       movieDertails.value = value;
     });
   }
-
-  @override
-  void onClose() {
-    // id = "";
-    // movieDertails.close();
-    super.onClose();
-  }
 }

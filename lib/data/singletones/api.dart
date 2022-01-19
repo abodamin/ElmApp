@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, unnecessary_string_interpolations
 
 import 'dart:convert';
 import 'dart:io';
@@ -19,14 +19,14 @@ class ApiClient {
   static final http.Client _httpClient = http.Client();
 
   //Dev API
-  static const String _DEV_URL = "https://api.themoviedb.org";
+  static const String _devUrl = "https://api.themoviedb.org";
 
   //Prod API
-  static const String _PROD_URL = "https://blabla-prod.com/";
+  // static const String _proUrl = "https://blabla-prod.com/";
 
   /// Actual Api that wll be used, regardless what server we point to(Dev or Prod).
   /// we change this to Prod for production enviroment.
-  static const String BASE_URL = "$_DEV_URL";
+  static const String baseUrl = "$_devUrl";
 
   ///All our apis will use h=this header, if need to change will change inside method.
   static const Map<String, String> _header = {
@@ -40,8 +40,7 @@ class ApiClient {
   Future<TrendingMoviesModel> getTrendingMovies(int page) async {
     try {
       final response = await _httpClient.get(
-        Uri.parse(
-            "$BASE_URL/3/trending/movie/week?api_key=$mApiKey&page=$page"),
+        Uri.parse("$baseUrl/3/trending/movie/week?api_key=$mApiKey&page=$page"),
         headers: _header,
       );
 
@@ -65,7 +64,7 @@ class ApiClient {
   Future<MovieDertailsModel> getMovieDetails(String id) async {
     try {
       final response = await _httpClient.get(
-        Uri.parse("$BASE_URL/3/movie/$id?api_key=$mApiKey&language=en-US"),
+        Uri.parse("$baseUrl/3/movie/$id?api_key=$mApiKey&language=en-US"),
         headers: _header,
       );
       debugPrint("___getMovieDetails " + response.body);
@@ -89,7 +88,7 @@ class ApiClient {
   Future<MovieCastModel> getMovieCast(String id) async {
     try {
       final response = await _httpClient.get(
-        Uri.parse("$BASE_URL/3/movie/$id/casts?api_key=$mApiKey"),
+        Uri.parse("$baseUrl/3/movie/$id/casts?api_key=$mApiKey"),
         headers: _header,
       );
 

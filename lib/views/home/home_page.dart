@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
+  //DI
   final HomePageController _homePageController = Get.put(HomePageController());
 
   @override
@@ -22,7 +23,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // --- Title --- //
+              // --- Header Title --- //
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -32,12 +33,13 @@ class HomePage extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
-              // ---- List of Movies ---- //
+              // ---- List of Movies (GridView) ---- //
               Expanded(
                 child: SizedBox(
                   height: getMediaHeight(context),
                   child: Obx(() {
                     return MoviesGridView(
+                      // ignore: invalid_use_of_protected_member
                       listOfMovies: _homePageController.moviesList.value,
                     );
                   }),

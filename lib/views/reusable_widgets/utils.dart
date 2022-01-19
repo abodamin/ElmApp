@@ -1,9 +1,9 @@
+// ignore_for_file: use_key_in_widget_constructors, use_full_hex_values_for_flutter_colors
+
 import 'dart:io';
 import 'dart:ui';
 
 import 'package:elm_application/app/colors.dart';
-import 'package:elm_application/views/details/details_page.dart';
-import 'package:elm_application/views/details/details_page_controller.dart';
 import 'package:elm_application/views/reusable_widgets/responsive.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
@@ -46,13 +46,13 @@ Future navigateTo(context, page, {dynamic arguments}) async {
 // }
 
 InputDecoration txtField(String label) {
-  return new InputDecoration(
+  return InputDecoration(
     border: InputBorder.none,
     focusedBorder: InputBorder.none,
     enabledBorder: InputBorder.none,
     errorBorder: InputBorder.none,
     hintText: label,
-    hintStyle: TextStyle(color: Colors.grey),
+    hintStyle: const TextStyle(color: Colors.grey),
     disabledBorder: InputBorder.none,
     contentPadding: EdgeInsets.only(left: 15, right: 15),
   );
@@ -64,19 +64,19 @@ Future<void> setUIOverlays() async {
 }
 
 InputDecoration txtFieldLabel(String label) {
-  return new InputDecoration(
+  return InputDecoration(
     border: InputBorder.none,
     focusedBorder: InputBorder.none,
     enabledBorder: InputBorder.none,
     errorBorder: InputBorder.none,
     labelText: label,
     disabledBorder: InputBorder.none,
-    contentPadding: EdgeInsets.only(left: 5, right: 5),
+    contentPadding: const EdgeInsets.only(left: 5, right: 5),
   );
 }
 
 InputDecoration txtFieldSearch(String label) {
-  return new InputDecoration(
+  return const InputDecoration(
     border: InputBorder.none,
     suffixIcon: Icon(Icons.clear),
     disabledBorder: InputBorder.none,
@@ -93,7 +93,7 @@ RoundedRectangleBorder buttonShape() {
 Decoration containerRadiusWithGradient(double radius) {
   return BoxDecoration(
     borderRadius: BorderRadius.circular(radius),
-    gradient: LinearGradient(
+    gradient: const LinearGradient(
       colors: [
         Color(0xFFFDCA46F),
         Color(0xFFFA47E5D),
@@ -209,14 +209,14 @@ Decoration containerColorRadiusLeftBorder(
 
 ShapeBorder cardRadius(double radius) {
   return RoundedRectangleBorder(
-    side: BorderSide(color: Colors.transparent, width: 1),
+    side: const BorderSide(color: Colors.transparent, width: 1),
     borderRadius: BorderRadius.circular(radius),
   );
 }
 
 ShapeBorder cardRadiusTop(double radius) {
   return RoundedRectangleBorder(
-    side: BorderSide(color: Colors.transparent, width: 0),
+    side: const BorderSide(color: Colors.transparent, width: 0),
     borderRadius: BorderRadius.only(
         topLeft: Radius.circular(radius), topRight: Radius.circular(radius)),
   );
@@ -239,14 +239,14 @@ ShapeBorder cardRadiusBottom(double radius) {
 
 ShapeBorder cardRadiusWithoutBorder(double radius) {
   return RoundedRectangleBorder(
-    side: BorderSide(color: Colors.transparent, width: 1),
+    side: const BorderSide(color: Colors.transparent, width: 1),
     borderRadius: BorderRadius.circular(radius),
   );
 }
 
 ShapeBorder cardRadiusWithBorder(double radius) {
   return RoundedRectangleBorder(
-    side: BorderSide(color: Colors.grey, width: 1),
+    side: const BorderSide(color: Colors.grey, width: 1),
     borderRadius: BorderRadius.circular(radius),
   );
 }
@@ -370,7 +370,7 @@ class MButtonText extends StatelessWidget {
         child: Text(
           text,
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white, fontSize: 16),
+          style: const TextStyle(color: Colors.white, fontSize: 16),
         ),
       ),
     );
@@ -395,13 +395,12 @@ class AppBarText extends StatelessWidget {
   final String text;
   final TextStyle style;
 
-  const AppBarText(this.text, {required this.style})
-      : assert(text != null, 'text must be non null');
+  const AppBarText(this.text, {required this.style});
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      this.text,
+      text,
       style: getTextTheme(context).button?.copyWith(color: primaryColor),
     );
   }

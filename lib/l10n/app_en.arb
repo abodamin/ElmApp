@@ -1,5 +1,11 @@
 {
-    "helloWorld": "Hello World!",
-    "trendingMoviesTitle":"Trending Movies in 2021",
-    "appName":"Elm Movies"
+    
+    "trendingMoviesTitle": "Trending Movies in 2021",
+    "appName": "Elm Movies",
+    "overview": "OVERVIEW",
+    "genres": "GENRES",
+    "cast": "CAST",
+    "budget":"Budget",
+    "duration":"Duration",
+    "releaseDate":"Release Date"
 }

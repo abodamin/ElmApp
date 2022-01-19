@@ -1,4 +1,3 @@
-import 'package:elm_application/data/api_models/trending_movies_model.dart';
 import 'package:elm_application/data/singletones/api.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -8,7 +7,7 @@ enum Status { hasData, hasError, loading }
 class HomePageController extends GetxController {
   HomePageController();
 
-  int pages = 1;
+  int page = 1;
   RxBool showLoader = false.obs;
   var moviesList = [].obs;
 
@@ -16,32 +15,30 @@ class HomePageController extends GetxController {
 
   @override
   void onInit() {
-    getTrendingMovies2021();
+    requestTrendingMovies();
     bottomPageReached();
     super.onInit();
   }
 
-  Future getTrendingMovies2021() async {
+  Future requestTrendingMovies() async {
     showLoader = RxBool(true);
-    return ApiClient.apiClient.getTrendingMovies(pages).then((value) {
+    return ApiClient.apiClient.getTrendingMovies(page).then((value) {
       moviesList.addAll(value.results!);
-
       showLoader = RxBool(false);
     });
   }
 
   void incrementPage() {
     showLoader = RxBool(true);
-    pages++;
-    getTrendingMovies2021();
-    // update();
+    page++;
+    requestTrendingMovies();
   }
 
+  ///creates listener to update page when bottom is reached.
   void bottomPageReached() {
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
-        debugPrint("___max reached");
         incrementPage();
       }
     });

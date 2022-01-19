@@ -7,9 +7,10 @@ class AvatarPhoto extends StatelessWidget {
   final double height;
 
   const AvatarPhoto({
+    Key? key,
     required this.photoPath,
     required this.height,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

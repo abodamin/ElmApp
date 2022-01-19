@@ -9,6 +9,7 @@ class ExternalFilesManager extends Bindings {
   static const String _moviesDetailsFile = "moviesDetailsFile.txt";
   static const String _castDetailsFile = "castDetailsFile.txt";
 
+// --- HomePageMovies
   Future<void> storeHomePageMovies(String text) async {
     final Directory directory = await getApplicationDocumentsDirectory();
     final File file = File('${directory.path}/$_homePageMoviesFile');
@@ -27,7 +28,7 @@ class ExternalFilesManager extends Bindings {
     return text;
   }
 
-// ---- Movies Details File
+// ---- MovieDetailsPage
 
   Future<void> storeMovieDetails(String text, String movieId) async {
     final Directory directory = await getApplicationDocumentsDirectory();
@@ -47,7 +48,7 @@ class ExternalFilesManager extends Bindings {
     return text;
   }
 
-  // --- Cast Details
+  // --- CastDetails
 
   Future<void> storeCastDetails(String text, String movieId) async {
     final Directory directory = await getApplicationDocumentsDirectory();
@@ -62,7 +63,7 @@ class ExternalFilesManager extends Bindings {
       final File file = File('${directory.path}/$_castDetailsFile-$movieId');
       text = await file.readAsString();
     } catch (e) {
-      debugPrint("___Error in reading file retrieveMovieDetails error>> $e ");
+      debugPrint("___Error in reading file retrieveCastDetails error>> $e ");
     }
     return text;
   }

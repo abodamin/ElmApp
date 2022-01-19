@@ -4,7 +4,6 @@ import 'package:elm_application/app/resourses.dart';
 
 class GeneralCachedImage extends StatelessWidget {
   final height;
-
   final photoPath;
 
   const GeneralCachedImage({

@@ -1,5 +1,11 @@
 {
-    "helloWorld": "Hello World!",
+    
     "trendingMoviesTitle":"اجمل افلام ٢٠٢١",
-    "appName":"افلام عِلم"
+    "appName":"افلام عِلم",
+    "overview": "ملخص",
+    "genres": "الفئات",
+    "cast": "الممثلين",
+    "budget":"الميزانية",
+    "duration":"المدة",
+    "releaseDate":"تاريخ الاصدار"
 }
