@@ -9,6 +9,7 @@ import 'package:elm_application/data/api_models/movie_details_model.dart';
 import 'package:elm_application/data/api_models/trending_movies_model.dart';
 import 'package:elm_application/data/singletones/external_files_manager.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class ApiClient {
@@ -24,6 +25,7 @@ class ApiClient {
   static const String _PROD_URL = "https://blabla-prod.com/";
 
   /// Actual Api that wll be used, regardless what server we point to(Dev or Prod).
+  /// we change this to Prod for production enviroment.
   static const String BASE_URL = "$_DEV_URL";
 
   ///All our apis will use h=this header, if need to change will change inside method.
@@ -32,9 +34,10 @@ class ApiClient {
     // 'token': mUserToken,
   };
 
-  Future<TrendingMoviesModel> getTrendingMovies(int page) async {
-    const ExternalFilesManager filesManager = ExternalFilesManager();
+  //Dependency Injection for filesManager
+  final ExternalFilesManager filesManager = Get.put(ExternalFilesManager());
 
+  Future<TrendingMoviesModel> getTrendingMovies(int page) async {
     try {
       final response = await _httpClient.get(
         Uri.parse(
@@ -55,13 +58,11 @@ class ApiClient {
     } on http.ClientException {
       return Future.error("______check your internet connection_____");
     } catch (e) {
-      return Future.error("______Other Error error is>> $e");
+      return Future.error("______Other Error >>$e");
     }
   }
 
   Future<MovieDertailsModel> getMovieDetails(String id) async {
-    const ExternalFilesManager filesManager = ExternalFilesManager();
-
     try {
       final response = await _httpClient.get(
         Uri.parse("$BASE_URL/3/movie/$id?api_key=$mApiKey&language=en-US"),
@@ -81,7 +82,7 @@ class ApiClient {
     } on http.ClientException {
       return Future.error("______check your internet connection_____");
     } catch (e) {
-      return Future.error("______Server Error_______");
+      return Future.error("______Other Error >>$e");
     }
   }
 
@@ -93,22 +94,18 @@ class ApiClient {
       );
 
       debugPrint("___getMovieCast " + response.body);
+      await filesManager.storeCastDetails(response.body, id);
 
       final parsed = json.decode(response.body);
       return MovieCastModel.fromJson(parsed);
     } on SocketException {
-      return Future.error("______check your internet connection_____");
+      var oldData = await filesManager.retrieveCastDetails(id);
+      final parsed = json.decode(oldData);
+      return MovieCastModel.fromJson(parsed);
     } on http.ClientException {
       return Future.error("______check your internet connection_____");
     } catch (e) {
-      return Future.error("______Server Error_______");
+      return Future.error("______Other Error >>$e");
     }
-  }
-
-  ///check if this is successful response
-  ///
-  /// returns [True] if results are not null.
-  bool _checkIsSuccessResponse(List<Result>? results) {
-    return results != null;
   }
 }

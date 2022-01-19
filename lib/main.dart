@@ -1,3 +1,4 @@
+import 'package:elm_application/data/singletones/external_files_manager.dart';
 import 'package:elm_application/services/localizations_provider.dart';
 import 'package:elm_application/views/home/home_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blue,
             ),
             home: HomePage(),
+            initialBinding: BindingsBuilder(
+              () => {Get.put(() => ExternalFilesManager())},
+            ),
           );
         });
       },
